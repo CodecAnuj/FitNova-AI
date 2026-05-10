@@ -5,13 +5,16 @@
 // - improve logging
 
 import mongoose from "mongoose";
+import { env } from "../config/env.js";
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    await mongoose.connect(env.MONGODB_URI);
+
     console.log("MongoDB connected");
   } catch (error) {
-    console.log(error);
+    console.log("MongoDB connection failed");
+
     process.exit(1);
   }
 };

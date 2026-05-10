@@ -5,16 +5,22 @@
 // - setup environment variables
 // - start Express server
 
-import dotenv from "dotenv";
 import app from "./app.js";
 import { connectDB } from "./db/index.js";
+import { env } from "./config/env.js";
 
-dotenv.config();
+const startServer = async () => {
+  try {
+    await connectDB();
 
-connectDB();
+    app.listen(env.PORT, () => {
+      console.log(
+        `Server running on port ${env.PORT}`
+      );
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`FitNova-AI Backend Running on ${PORT}`);
-});
+startServer();
