@@ -6,8 +6,42 @@
 // - logout function
 // - session restore
 
-const AuthContext = () => {
-  return null;
+import {
+  createContext,
+  useState,
+} from "react";
+
+import type {
+  AuthContextType,
+  User,
+} from "../types/auth.types";
+
+export const AuthContext =
+  createContext<AuthContextType | null>(
+    null
+  );
+
+const AuthProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [user, setUser] =
+    useState<User | null>(null);
+
+  const [loading] = useState(false);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        loading,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default AuthContext;
+export default AuthProvider;
