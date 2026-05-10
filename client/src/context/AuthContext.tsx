@@ -8,8 +8,11 @@
 
 import {
   createContext,
+  useEffect,
   useState,
 } from "react";
+
+import api from "../api/axios";
 
 import type {
   AuthContextType,
@@ -29,7 +32,26 @@ const AuthProvider = ({
   const [user, setUser] =
     useState<User | null>(null);
 
-  const [loading] = useState(false);
+  const [loading, setLoading] =
+    useState(true);
+
+  useEffect(() => {
+    const fetchCurrentUser =
+      async () => {
+        try {
+          const response =
+            await api.get("/users/me");
+
+          setUser(response.data.user);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+    fetchCurrentUser();
+  }, []);
 
   return (
     <AuthContext.Provider

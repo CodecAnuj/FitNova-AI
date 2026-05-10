@@ -112,3 +112,37 @@ export const loginUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getCurrentUser = async (req: any, res: Response) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+};
+
+export const logoutUser = async (_: Request, res: Response) => {
+  res.clearCookie("accessToken");
+
+  res.clearCookie("refreshToken");
+
+  res.status(200).json({
+    success: true,
+    message: "Logout successful",
+  });
+};
