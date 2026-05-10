@@ -1,14 +1,24 @@
 // User routes.
 // This file will contain all user-related API routes.
 
+import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+
 import { User } from "../models/user.model.js";
 
-export const registerUser = async (req: any, res: any) => {
+export const registerUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
 
-    const existingUser = await User.findOne({ email });
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
+
+    const existingUser = await User.findOne({
+      email,
+    });
 
     if (existingUser) {
       return res.status(400).json({
@@ -26,9 +36,14 @@ export const registerUser = async (req: any, res: any) => {
 
     res.status(201).json({
       success: true,
+      message: "User registered successfully",
       user,
     });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
   }
 };
