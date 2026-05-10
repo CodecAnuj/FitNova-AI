@@ -10,6 +10,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
+import workoutRoutes from "./routes/workout.routes.js";
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
+
+app.use("/api/workouts", workoutRoutes);
 
 app.get("/", (_, res) => {
   res.send("FitNova-AI Backend Running");
