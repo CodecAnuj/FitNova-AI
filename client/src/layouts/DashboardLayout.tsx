@@ -10,6 +10,7 @@ import {
   Brain,
   LineChart,
   Settings,
+  BicepsFlexed
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
@@ -68,6 +69,14 @@ const DashboardLayout = ({
             <Settings size={20} />
             Settings
           </Link>
+
+          <Link
+            to="/ai-workout"
+            className="flex items-center gap-3 p-3 rounded-xl hover:bg-zinc-900 transition"
+          >
+            <BicepsFlexed size={20} />
+            AI Workout
+            </Link>
         </nav>
       </aside>
 

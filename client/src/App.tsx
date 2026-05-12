@@ -19,6 +19,8 @@ import AiCoach from "./pages/dashboard/AiCoach";
 
 import Settings from "./pages/dashboard/Settings";
 
+import AiWorkout from "./pages/dashboard/AiWorkout";
+
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 const App = () => {
@@ -80,6 +82,15 @@ const App = () => {
         element={
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/ai-workout"
+        element={
+          <ProtectedRoute>
+            <AiWorkout />
           </ProtectedRoute>
         }
       />
