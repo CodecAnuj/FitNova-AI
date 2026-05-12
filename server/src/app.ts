@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import workoutRoutes from "./routes/workout.routes.js";
 import progressRoutes from "./routes/progress.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/workouts", workoutRoutes);
 
 app.use("/api/progress", progressRoutes);
+
+app.use("/api/ai", aiRoutes);
 
 app.get("/", (_, res) => {
   res.send("FitNova-AI Backend Running");
